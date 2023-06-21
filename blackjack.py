@@ -138,8 +138,11 @@ class Blackjack:
         while not (self.player_stood or self.player_lost or self.player_surrendered or self.player_blackjacked):
             actions_list = list(self.possible_actions.values())
             if not self.player_initial_deal:
-                actions_list.remove(self.possible_actions['double down'])
                 actions_list.remove(self.possible_actions['surrender'])
+                actions_list.remove(self.possible_actions['double down'])
+            elif self.player.money < self.player.wager:
+                actions_list.remove(self.possible_actions['double down'])
+                
             actions_direction = [direction[direction.find('(') + 1].lower() for direction in actions_list]
 
             message = f'{", ".join(actions_list)}\n> '
