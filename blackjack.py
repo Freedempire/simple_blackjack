@@ -224,8 +224,12 @@ class Blackjack:
             case 'player lost':
                 print(f'Player lost ${self.player.wager}.')
             case 'player surrendered':
-                self.player.money += round(self.player.wager / 2)
-                print(f'Player surrendered, lost ${round(self.player.wager / 2)}.')
+                # self.player.money += round(self.player.wager / 2)
+                # changed wager lost when surrendered because round() uses round
+                # even half which leads to unexpected results
+                money_return = self.player.wager // 2
+                self.player.money += money_return
+                print(f'Player surrendered, lost ${self.player.wager - money_return}.')
             case _:
                 print('Error!')
         print()
